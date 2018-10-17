@@ -21,3 +21,6 @@ export const addNewTask = (taskName, listId) => {
     
     return {type: 'ADD_NEW_TASK', newTask: newTask};
 }
+
+export const removeList = (listId) => ({type: 'REMOVE_LIST', listId});
+    

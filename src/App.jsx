@@ -20,17 +20,15 @@ class App extends Component {
   handleInputChange = (e) => {
     this.setState({addNewListText: e.target.value})
   }
+  
   handleKeyup = (e) => {
     if(e.keyCode === 13) {
       addNewList(this.state.addNewListText);
     }
   }
-  removeList(listId) {
-      this.setState(prevState => {
-        let newLists = prevState.lists.filter( list => list.listId !== listId) ;
-        return { lists: newLists }
-      })
-  }
+  
+
+  
   markAsCompleted(taskId,listId, completedState) {
     this.setState(prevState => {
         let newLists = prevState.lists.map(list => {
@@ -60,7 +58,7 @@ class App extends Component {
         <section>
           <div className="lists">
             { this.state.lists.map( listData => 
-            <List key={listData.listId} data={listData} onHandleRemoveList={this.removeList.bind(this)} onHandleMarkAsCompleted={this.markAsCompleted.bind(this)}/>)}
+            <List key={listData.listId} data={listData} onHandleMarkAsCompleted={this.markAsCompleted.bind(this)}/>)}
           </div>
         </section>
       </div>

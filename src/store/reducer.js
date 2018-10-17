@@ -18,6 +18,12 @@ export default reducer(state = initialState, action)
             })
             return [...state.lists, newLists];    
         }
+
+        case 'REMOVE_LIST':
+        {
+            let newLists = prevState.lists.filter( list => list.listId !== listId) ;
+            return [...state.lists, newLists];
+        }
         default:
             return state;
     }
