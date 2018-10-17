@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import List from './List.component.jsx';
+import {addNewList} from './store/actions';
 class App extends Component {
   constructor( props ) {
       super( props );
@@ -10,6 +11,7 @@ class App extends Component {
 
       }
   }
+  
   generateId(namespace) {
     return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`
 
@@ -49,7 +51,7 @@ class App extends Component {
   }
   handleKeyup = (e) => {
     if(e.keyCode === 13) {
-      this.addNewList();
+      addNewList(this.state.addNewListText);
     }
   }
   removeList(listId) {
