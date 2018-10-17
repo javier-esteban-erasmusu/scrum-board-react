@@ -12,10 +12,6 @@ class App extends Component {
       }
   }
   
-  generateId(namespace) {
-    return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`
-
-  }
   
   handleInputChange = (e) => {
     this.setState({addNewListText: e.target.value})
@@ -44,4 +40,10 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+const mapStateToProps = (state)  => ({lists});
+
+export default connect(
+  mapStateToProps,
+  null
+)(App);
