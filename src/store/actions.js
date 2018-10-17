@@ -1,5 +1,3 @@
-import store from 'store';
-
 export const addNewList = (addNewListText) => {
     const newList = {
                 "listId": this.generateId('list'),
@@ -24,3 +22,6 @@ export const addNewTask = (taskName, listId) => {
 
 export const removeList = (listId) => ({type: 'REMOVE_LIST', listId});
     
+export const markAsCompleted = (taskId,listId, completedState) => (
+    {type: 'MARK_AS_COMPLETED', taskId: taskId, listId: listId, completedState:completedState}
+)

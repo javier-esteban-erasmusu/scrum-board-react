@@ -21,7 +21,24 @@ export default reducer(state = initialState, action)
 
         case 'REMOVE_LIST':
         {
-            let newLists = prevState.lists.filter( list => list.listId !== listId) ;
+            const newLists = prevState.lists.filter( list => list.listId !== listId) ;
+            return [...state.lists, newLists];
+        }
+
+        case 'MARK_AS_COMPLETED':
+        {
+            const newLists = prevState.lists.map(list => {
+                if(list.listId === listId) {
+                    list.tasks = list.tasks.map(task => {
+                    if(task.taskId === taskId) {
+                        task.completed = completedState;
+                    }
+                    return task;
+                    })
+                }
+                return list
+                }) ;
+                
             return [...state.lists, newLists];
         }
         default:

@@ -25,40 +25,19 @@ class App extends Component {
     if(e.keyCode === 13) {
       addNewList(this.state.addNewListText);
     }
-  }
-  
-
-  
-  markAsCompleted(taskId,listId, completedState) {
-    this.setState(prevState => {
-        let newLists = prevState.lists.map(list => {
-          if(list.listId === listId) {
-            list.tasks = list.tasks.map(task => {
-              if(task.taskId === taskId) {
-                task.completed = completedState;
-              }
-              return task;
-            })
-          }
-          return list
-        }) ;
-        
-        return { lists: newLists }
-      })
-  }
- 
+  } 
   render() {
     localStorage.setItem('lists', JSON.stringify(this.state.lists));
     return (
       <div className="App">
         <header className="addList">
           <input type="text" value={this.state.addNewListText} onChange={this.handleInputChange} onKeyUp={this.handleKeyup}/>
-          <button onClick={this.addNewList}>add new list</button>
+          <button onClick={()=> addNewList(this.state.addNewListText)}>add new list</button>
         </header>
         <section>
           <div className="lists">
-            { this.state.lists.map( listData => 
-            <List key={listData.listId} data={listData} onHandleMarkAsCompleted={this.markAsCompleted.bind(this)}/>)}
+            { this.props.lists.map( listData => 
+            <List key={listData.listId} data={listData} />)}
           </div>
         </section>
       </div>
