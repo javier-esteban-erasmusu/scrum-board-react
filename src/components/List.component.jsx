@@ -4,7 +4,7 @@ import Task from './Task.component.jsx';
 import ListType from './List.type.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addNewTask, removeList} from './store/actions';
+import {addNewTask, removeList} from '../store/actions';
 
 class List extends React.Component {
     static propTypes = {

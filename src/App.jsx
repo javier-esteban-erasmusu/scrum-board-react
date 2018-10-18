@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import List from './List.component.jsx';
+import List from './components/List.component.jsx';
 import {addNewList} from './store/actions';
 import {connect} from 'react-redux';
 class App extends Component {
