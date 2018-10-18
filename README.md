@@ -23,7 +23,7 @@ Para ser realizadas por los alumnos:
 - [ ] Editar texto de la tarea.
 - [ ] Cambiar el tareas de lista arrastrándolas (drag and drop native o buscar algún componente de terceros)
 - [ ] Cambiar las tareas de orden (plugin recomendado: [React sortable hoc](https://github.com/clauderic/react-sortable-hoc)
-- [ ] Migrar la gestión del estado a redux
+- [x] Migrar la gestión del estado a redux
 
 ## Objetivo final
 
