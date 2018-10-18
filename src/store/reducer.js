@@ -11,8 +11,8 @@ export function reducer(state = initialState, action)
         case 'ADD_NEW_TASK':
         {
             const newLists = state.lists.map( list => {
-                if (list.listId === action.listId) {
-                    list.tasks.push(action.taskName)
+                if (list.listId === action.newTask.listId) {
+                    list.tasks.push(action.newTask)
                 }
                     return list;
             })
