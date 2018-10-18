@@ -39,7 +39,7 @@ export function reducer(state = initialState, action)
                 return list
                 }) ;
                 
-            return [...state.lists, newLists];
+            return { lists: newLists};
         }
         default:
             return state;

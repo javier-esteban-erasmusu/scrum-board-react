@@ -1,13 +1,11 @@
 import React from 'react';
 import TaskType from './Task.type.js';
-
-import PropTypes from 'prop-types';
+import {markAsCompleted} from '../store/actions'
 import './Task.component.css';
 
 class Task extends React.Component {
     static propTypes = {
-        data: TaskType,
-        onHandleMarkAsCompleted: PropTypes.func.isRequired
+        data: TaskType
     }
     render () {
         return (
@@ -16,7 +14,7 @@ class Task extends React.Component {
                 <input 
                     type="checkbox" 
                     onChange={(e)=> 
-                        this.props.onHandleMarkAsCompleted(
+                        markAsCompleted(
                             this.props.data.taskId, 
                             this.props.data.listId,
                             e.target.checked
