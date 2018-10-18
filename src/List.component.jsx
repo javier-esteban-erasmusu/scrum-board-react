@@ -4,6 +4,7 @@ import Task from './Task.component.jsx';
 import ListType from './List.type.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {addNewTask, removeList} from './store/actions';
 
 class List extends React.Component {
     static propTypes = {
@@ -24,12 +25,12 @@ class List extends React.Component {
     }
     handleAddNewTask = (e) => {
         if(e.keyCode === 13 || e.type === 'click') {
-            this.props.onHandleNewTask(this.state.newTaskName, this.props.data.listId)
-             this.setState({newTaskName: ''})
+            addNewTask(this.state.newTaskName, this.props.data.listId)
+            this.setState({newTaskName: ''})
         }
     }
     handleRemoveList = () => {
-        this.props.onHandleRemoveList(this.props.data.listId)
+        removeList(this.props.data.listId)
     }
     render() {
         return (

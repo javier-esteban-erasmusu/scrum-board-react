@@ -11,8 +11,8 @@ export function reducer(state = initialState, action)
         case 'ADD_NEW_TASK':
         {
             const newLists = state.lists.map( list => {
-                if (list.listId === action.list.listId) {
-                    list.tasks.push(action.task)
+                if (list.listId === action.listId) {
+                    list.tasks.push(action.taskName)
                 }
                     return list;
             })
@@ -22,7 +22,7 @@ export function reducer(state = initialState, action)
         case 'REMOVE_LIST':
         {
             const newLists = state.lists.filter( list => list.listId !== action.listId) ;
-            return {lists: [state.lists, newLists]};
+            return {lists: newLists};
         }
 
         case 'MARK_AS_COMPLETED':
