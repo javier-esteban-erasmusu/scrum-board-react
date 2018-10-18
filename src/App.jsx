@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import List from './List.component.jsx';
 import {addNewList} from './store/actions';
+import {connect} from 'react-redux';
 class App extends Component {
   constructor( props ) {
       super( props );
@@ -41,7 +42,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state)  => ({lists});
+const mapStateToProps = (state)  => ({lists: state.lists});
 
 export default connect(
   mapStateToProps,

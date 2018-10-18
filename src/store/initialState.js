@@ -1,3 +1,3 @@
-export default initialState = {
-    lists = []
+export const initialState = {
+    lists :[]
 }

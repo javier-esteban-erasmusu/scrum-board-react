@@ -1,8 +1,8 @@
-import store from './store';
+import {store} from './index.js';
 
 export const addNewList = (addNewListText) => {
     const newList = {
-                "listId": this.generateId('list'),
+                "listId": generateId('list'),
                 "name": addNewListText,
                 "tasks": []
             }
@@ -11,7 +11,7 @@ export const addNewList = (addNewListText) => {
 
 export const addNewTask = (taskName, listId) => {
     const newTask = {
-        "taskId": this.generateId('task'),
+        "taskId": generateId('task'),
         "text": taskName,
         "completed": false,
         "color": "white",
@@ -29,6 +29,6 @@ export const markAsCompleted = (taskId,listId, completedState) => {
     )
 };
 
-generateId = (namespace)  => {
+const generateId = (namespace)  => {
     return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`
 }

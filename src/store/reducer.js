@@ -1,37 +1,37 @@
-import initialState from 'initialState';
+import {initialState} from './initialState';
 
-export default reducer(state = initialState, action)
+export function reducer(state = initialState, action)
 {
-    switch(action)
+    
+    switch(action.type)
     {
         case 'ADD_NEW_LIST': 
+            return {lists: [state.lists, action.list]};
+        
+        case 'ADD_NEW_TASK':
         {
-            return [...state.lists, action.list];
-        }
-        case 'ADD_NEW_LIST':
-        {
-            const newLists = prevState.lists.map( list => {
-                if (list.listId === listId) {
-                    list.tasks.push(newTask)
+            const newLists = state.lists.map( list => {
+                if (list.listId === action.list.listId) {
+                    list.tasks.push(action.task)
                 }
                     return list;
             })
-            return [...state.lists, newLists];    
+            return {lists: newLists};
         }
 
         case 'REMOVE_LIST':
         {
-            const newLists = prevState.lists.filter( list => list.listId !== listId) ;
-            return [...state.lists, newLists];
+            const newLists = state.lists.filter( list => list.listId !== action.listId) ;
+            return {lists: [state.lists, newLists]};
         }
 
         case 'MARK_AS_COMPLETED':
         {
-            const newLists = prevState.lists.map(list => {
-                if(list.listId === listId) {
+            const newLists = state.lists.map(list => {
+                if(list.listId === action.listId) {
                     list.tasks = list.tasks.map(task => {
-                    if(task.taskId === taskId) {
-                        task.completed = completedState;
+                    if(task.taskId === action.taskId) {
+                        task.completed = action.completedState;
                     }
                     return task;
                     })
