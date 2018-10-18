@@ -3,6 +3,7 @@ import './List.component.css';
 import Task from './Task.component.jsx';
 import ListType from './List.type.js';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 class List extends React.Component {
     static propTypes = {
@@ -57,5 +58,9 @@ class List extends React.Component {
     }
 }
 
+const mapStateToProps = (state)  => ({lists: state.lists});
 
-export default List;
+export default connect(
+  mapStateToProps,
+  null
+)(List);

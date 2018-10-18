@@ -6,7 +6,7 @@ export function reducer(state = initialState, action)
     switch(action.type)
     {
         case 'ADD_NEW_LIST': 
-            return {lists: [state.lists, action.list]};
+            return {lists: [...state.lists, action.newList]};
         
         case 'ADD_NEW_TASK':
         {
