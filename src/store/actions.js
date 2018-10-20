@@ -21,6 +21,8 @@ export const addNewTask = (taskName, listId) => {
     store.dispatch({type: 'ADD_NEW_TASK', newTask: newTask});
 }
 
+export const removeTask = (listId, taskId) => {store.dispatch({type:'REMOVE_TASK', listId, taskId})};
+
 export const removeList = (listId) => {store.dispatch({type: 'REMOVE_LIST', listId})};
     
 export const markAsCompleted = (taskId,listId, completedState) => {

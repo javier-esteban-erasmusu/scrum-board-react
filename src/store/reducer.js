@@ -25,6 +25,21 @@ export function reducer(state = initialState, action)
             return {lists: newLists};
         }
 
+        case 'REMOVE_TASK':
+        {
+            const newLists = state.lists.map(
+                list => {
+                    if (list.listId === action.listId) {
+                        list.tasks = list.tasks.filter(
+                            task => task.taskId !== action.taskId
+                        )
+                    }
+                    return list;
+                }
+            );
+            return {lists: newLists};
+        }
+
         case 'MARK_AS_COMPLETED':
         {
             const newLists = state.lists.map(list => {

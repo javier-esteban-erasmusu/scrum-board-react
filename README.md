@@ -18,7 +18,7 @@ Ejecutar `npm star` para levantar el servidor de desarrollo con hot reloading.
 
 Para ser realizadas por los alumnos:
 
-- [ ] Borrar tareas 
+- [x] Borrar tareas 
 - [ ] Cambiar el color de las tareas individualmente (buscar un componente de terceros de color-picker)
 - [ ] Editar texto de la tarea.
 - [ ] Cambiar el tareas de lista arrastrándolas (drag and drop native o buscar algún componente de terceros)
