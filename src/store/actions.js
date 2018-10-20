@@ -15,7 +15,8 @@ export const addNewTask = (taskName, listId) => {
         "text": taskName,
         "completed": false,
         "color": "white",
-        "listId": listId
+        "listId": listId,
+        "readOnly": true
     }
     
     store.dispatch({type: 'ADD_NEW_TASK', newTask: newTask});
@@ -30,6 +31,14 @@ export const markAsCompleted = (taskId,listId, completedState) => {
         {type: 'MARK_AS_COMPLETED', taskId: taskId, listId: listId, completedState:completedState}
     )
 };
+
+export const changeTaskTextReadOnly = (taskId,listId, value) => {
+    store.dispatch(
+        {type: 'TOGGLE_TASK_TEXT_READ_ONLY', taskId, listId, value}
+    )
+};
+
+export const changeTaskText = (listId, taskId, newTaskText) => {store.dispatch({type: 'CHANGE_TASK_TITLE', listId, taskId, newTaskText})};
 
 const generateId = (namespace)  => {
     return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`

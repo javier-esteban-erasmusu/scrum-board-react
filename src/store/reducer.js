@@ -56,6 +56,40 @@ export function reducer(state = initialState, action)
                 
             return { lists: newLists};
         }
+
+        case 'CHANGE_TASK_TITLE':
+        {
+            const newLists = state.lists.map(list => {
+                if(list.listId === action.listId) {
+                    list.tasks = list.tasks.map(task => {
+                    if(task.taskId === action.taskId) {
+                        task.text = action.newTaskText;
+                    }
+                    return task;
+                    })
+                }
+                return list
+                }) ;
+                
+            return { lists: newLists};
+        }
+
+        case 'TOGGLE_TASK_TEXT_READ_ONLY':
+        {
+            const newLists = state.lists.map(list => {
+                if(list.listId === action.listId) {
+                    list.tasks = list.tasks.map(task => {
+                    if(task.taskId === action.taskId) {
+                        task.readOnly = action.value;
+                    }
+                    return task;
+                    })
+                }
+                return list
+                }) ;
+                
+            return { lists: newLists};
+        }
         default:
             return state;
     }
