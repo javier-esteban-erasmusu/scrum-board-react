@@ -90,6 +90,23 @@ export function reducer(state = initialState, action)
                 
             return { lists: newLists};
         }
+
+        case 'CHANGE_COLOR':
+        {
+            const newLists = state.lists.map(list => {
+                if(list.listId === action.listId) {
+                    list.tasks = list.tasks.map(task => {
+                    if(task.taskId === action.taskId) {
+                        task.color = action.color;
+                    }
+                    return task;
+                    })
+                }
+                return list
+                }) ;
+                
+            return { lists: newLists};
+        }
         default:
             return state;
     }

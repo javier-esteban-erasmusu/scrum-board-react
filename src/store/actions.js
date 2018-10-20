@@ -40,6 +40,8 @@ export const changeTaskTextReadOnly = (taskId,listId, value) => {
 
 export const changeTaskText = (listId, taskId, newTaskText) => {store.dispatch({type: 'CHANGE_TASK_TITLE', listId, taskId, newTaskText})};
 
+export const changeColor = (listId, taskId, color) => {store.dispatch({type:'CHANGE_COLOR',listId, taskId, color })}
+
 const generateId = (namespace)  => {
     return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`
 }
