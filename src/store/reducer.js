@@ -6,7 +6,7 @@ export function reducer(state = initialState, action)
     switch(action.type)
     {
         case 'ADD_NEW_LIST': 
-            return {lists: [...state.lists, action.newList]};
+            return {...state,lists: [...state.lists, action.newList]};
         
         case 'ADD_NEW_TASK':
         {
@@ -16,13 +16,13 @@ export function reducer(state = initialState, action)
                 }
                     return list;
             })
-            return {lists: newLists};
+            return {...state,lists: newLists};
         }
 
         case 'REMOVE_LIST':
         {
             const newLists = state.lists.filter( list => list.listId !== action.listId) ;
-            return {lists: newLists};
+            return {...state, lists: newLists};
         }
 
         case 'REMOVE_TASK':
@@ -37,7 +37,7 @@ export function reducer(state = initialState, action)
                     return list;
                 }
             );
-            return {lists: newLists};
+            return {...state, lists: newLists};
         }
 
         case 'MARK_AS_COMPLETED':
@@ -54,7 +54,7 @@ export function reducer(state = initialState, action)
                 return list
                 }) ;
                 
-            return { lists: newLists};
+            return {...state, lists: newLists};
         }
 
         case 'CHANGE_TASK_TITLE':
@@ -71,7 +71,7 @@ export function reducer(state = initialState, action)
                 return list
                 }) ;
                 
-            return { lists: newLists};
+            return {...state, lists: newLists};
         }
 
         case 'TOGGLE_TASK_TEXT_READ_ONLY':
@@ -88,7 +88,7 @@ export function reducer(state = initialState, action)
                 return list
                 }) ;
                 
-            return { lists: newLists};
+            return {...state, lists: newLists};
         }
 
         case 'CHANGE_COLOR':
@@ -105,8 +105,36 @@ export function reducer(state = initialState, action)
                 return list
                 }) ;
                 
-            return { lists: newLists};
+            return {...state, lists: newLists};
         }
+
+        case 'TASK_START_DRAG':
+        {
+            let draggerTask = {};
+            const newLists = state.lists.map(
+                list => {
+                    if (list.listId === action.listId) {
+                        draggerTask = list.tasks.find(
+                            task => task.taskId === action.taskId
+                        )
+                    }
+                    return list;
+                }
+            );
+            return {...state, draggedTask: draggerTask};
+        }
+
+        case 'TASK_DROP':
+        {
+            const newLists = state.lists.map( list => {
+                if (list.listId === action.newTask.listId) {
+                    list.tasks.push(action.newTask)
+                }
+                    return list;
+            })
+            return {...state,lists: newLists, draggedTask: {}};
+        }
+
         default:
             return state;
     }
