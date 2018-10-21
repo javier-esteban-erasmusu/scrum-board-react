@@ -5,6 +5,7 @@ import ListType from './List.type.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addNewTask, removeList, taskDrop} from '../store/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class List extends React.Component {
     static propTypes = {
@@ -49,9 +50,16 @@ class List extends React.Component {
             >
                 <div className="listHeader">
                     <h4>{this.props.data.name}
-                        <button onClick={this.handleRemoveList}>X</button>
+                        <button onClick={this.handleRemoveList}><FontAwesomeIcon icon="trash" /></button>
                     </h4>
                 </div>
+                
+                {this.props.data.tasks.map(taskData => 
+                <Task 
+                    data={taskData} 
+                    onHandleMarkAsCompleted={this.props.onHandleMarkAsCompleted} 
+                    key={taskData.taskId}/>)}
+
                 <div className="addTask">
                     <input 
                         type="text" 
@@ -59,12 +67,7 @@ class List extends React.Component {
                         onChange={this.handleInputChange} 
                         onKeyUp={this.handleAddNewTask} />
                     <button onClick={this.handleAddNewTask}>add task</button>
-                </div>
-                {this.props.data.tasks.map(taskData => 
-                <Task 
-                    data={taskData} 
-                    onHandleMarkAsCompleted={this.props.onHandleMarkAsCompleted} 
-                    key={taskData.taskId}/>)}
+                </div>    
             </div>
         )
     }

@@ -3,6 +3,7 @@ import TaskType from './Task.type.js';
 import TaskColor from './TaskColor.component';
 import {markAsCompleted, removeTask, changeTaskTextReadOnly, changeTaskText, taskDragStart} from '../store/actions';
 import './Task.component.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Task extends React.Component {
     static propTypes = {
@@ -43,7 +44,9 @@ class Task extends React.Component {
                 draggable
                 onDragStart={this.handleDragStart}         
             >
-                <button onClick={(e) => removeTask(this.props.data.listId, this.props.data.taskId)}>X</button>
+                <button onClick={(e) => removeTask(this.props.data.listId, this.props.data.taskId)}>
+                <FontAwesomeIcon icon="trash" />
+                </button>
                 <TaskColor color={this.props.data.color} listId={this.props.data.listId} taskId={this.props.data.taskId} />
                 {this.props.data.readOnly && <input 
                     type="checkbox"

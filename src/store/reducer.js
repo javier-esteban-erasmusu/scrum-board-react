@@ -140,7 +140,8 @@ export function reducer(state = initialState, action)
             const newLists = ListsTaskRemoved.map(
                 list => {
                     if (list.listId === action.listId) {
-                        list.tasks.push(state.draggedTask);
+                        const newTask = {...state.draggedTask, listId: action.listId }
+                        list.tasks.push(newTask);
                     }
                     return list;
                 }

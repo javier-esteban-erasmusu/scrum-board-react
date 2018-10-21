@@ -3,6 +3,12 @@ import './App.css';
 import List from './components/List.component.jsx';
 import {addNewList} from './store/actions';
 import {connect} from 'react-redux';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGhost, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faGhost, faTrash);
+
 class App extends Component {
   constructor( props ) {
       super( props );
