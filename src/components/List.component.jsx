@@ -4,7 +4,7 @@ import Task from './Task.component.jsx';
 import ListType from './List.type.js';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addNewTask, removeList} from '../store/actions';
+import {addNewTask, removeList, taskDrop} from '../store/actions';
 
 class List extends React.Component {
     static propTypes = {
@@ -32,10 +32,24 @@ class List extends React.Component {
     handleRemoveList = () => {
         removeList(this.props.data.listId)
     }
+
+    handleDragOver = (e) => {
+        e.preventDefault();
+    }
+
+    handleDrop = (e, category) => {
+        console.log(e);
+        taskDrop(this.props.data.listId, this.props.data.taskId);
+    }
+
     render() {
         return (
-            <div className="list"
-                id={this.props.data.listId}>
+            <div 
+                className="list"
+                id={this.props.data.listId}
+                onDragOver={(e) => this.handleDragOver(e)}
+                onDrop = {(e) => this.handleDrop(e, 'testd')}    
+            >
                 <div className="listHeader">
                     <h4>{this.props.data.name}
                         <button onClick={this.handleRemoveList}>X</button>

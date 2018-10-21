@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskType from './Task.type.js';
 import TaskColor from './TaskColor.component';
-import {markAsCompleted, removeTask, changeTaskTextReadOnly, changeTaskText, taskDragStart, taskDrop} from '../store/actions';
+import {markAsCompleted, removeTask, changeTaskTextReadOnly, changeTaskText, taskDragStart} from '../store/actions';
 import './Task.component.css';
 
 class Task extends React.Component {
@@ -28,13 +28,11 @@ class Task extends React.Component {
     }
     
     handleDragStart = (e) => {
+        e.dataTransfer.setData('text/plain',this.props.data.taskId);
         taskDragStart(this.props.data.listId, this.props.data.taskId);
     }
 
-    handleDrop = (e) => {
-        console.log(e);
-        taskDrop(this.props.data.listId, this.props.data.taskId);
-    }
+
 
 
     render () {
@@ -43,9 +41,7 @@ class Task extends React.Component {
                 className={`taskItem ${this.props.data.completed ? 'completed': ''}` } 
                 id={this.props.data.taskId}
                 draggable
-                onDragStart={this.handleDragStart}
-                onDragOver={this.handleDragOver}
-                onDrop = {this.handleDrop}             
+                onDragStart={this.handleDragStart}         
             >
                 <button onClick={(e) => removeTask(this.props.data.listId, this.props.data.taskId)}>X</button>
                 <TaskColor color={this.props.data.color} listId={this.props.data.listId} taskId={this.props.data.taskId} />
