@@ -21,6 +21,7 @@ class App extends Component {
   handleKeyup = (e) => {
     if(e.keyCode === 13) {
       addNewList(this.state.addNewListText);
+      this.setState({addNewListText: ''})
     }
   } 
   render() {

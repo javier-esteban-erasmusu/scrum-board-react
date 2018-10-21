@@ -126,9 +126,9 @@ export function reducer(state = initialState, action)
 
         case 'TASK_DROP':
         {
-            const removedTaskList = state.lists.map(
+            const ListsTaskRemoved = state.lists.map(
                 list => {
-                    if (list.listId === action.listId) {
+                    if (list.listId === state.draggedTask.listId) {
                         list.tasks = list.tasks.filter(
                             task => task.taskId !== state.draggedTask.taskId
                         )
@@ -137,13 +137,14 @@ export function reducer(state = initialState, action)
                 }
             );
 
-            const newLists = removedTaskList.map( list => {
-                if (list.listId === action.listId) {
-                    list.tasks.push(state.draggedTask)
+            const newLists = ListsTaskRemoved.map(
+                list => {
+                    if (list.listId === action.listId) {
+                        list.tasks.push(state.draggedTask);
+                    }
+                    return list;
                 }
-                return list;
-            })
-
+            );
 
             return {...state,lists: newLists, draggedTask: {}};
         }

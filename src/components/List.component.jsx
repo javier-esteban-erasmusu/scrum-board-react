@@ -8,10 +8,7 @@ import {addNewTask, removeList, taskDrop} from '../store/actions';
 
 class List extends React.Component {
     static propTypes = {
-        data: ListType,
-        onHandleMarkAsCompleted: PropTypes.func.isRequired,
-        onHandleNewTask: PropTypes.func.isRequired,
-        onHandleRemoveList: PropTypes.func.isRequired,
+        data: ListType
     }
 
     constructor(props) {
