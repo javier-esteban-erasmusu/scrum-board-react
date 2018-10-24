@@ -4,8 +4,11 @@ import List from './components/List.component.jsx';
 import {addNewList} from './store/actions';
 import {connect} from 'react-redux';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGhost, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+
 
 library.add(faGhost, faTrash);
 
@@ -51,7 +54,8 @@ class App extends Component {
 
 const mapStateToProps = (state)  => ({lists: state.lists});
 
-export default connect(
+export default DragDropContext(HTML5Backend)(connect(
   mapStateToProps,
   null
-)(App);
+)(App));
+

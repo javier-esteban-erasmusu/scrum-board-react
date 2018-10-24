@@ -1,11 +1,29 @@
 import React from 'react';
 import TaskType from './Task.type.js';
 import TaskColor from './TaskColor.component';
-import {markAsCompleted, removeTask, changeTaskTextReadOnly, changeTaskText, taskDragStart} from '../store/actions';
+import {markAsCompleted, removeTask, changeTaskTextReadOnly, changeTaskText} from '../store/actions';
 import './Task.component.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DragSource } from 'react-dnd';
+
+
+const itemSource = {
+    beginDrag(props) {
+        return props.data;
+    }
+}
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
+        isDragging: monitor.isDragging()
+    }
+}
+
 
 class Task extends React.Component {
+    
     static propTypes = {
         data: TaskType
     }
@@ -27,44 +45,37 @@ class Task extends React.Component {
             changeTaskTextReadOnly(this.props.data.taskId,this.props.data.listId, true);
         }
     }
-    
-    handleDragStart = (e) => {
-        e.dataTransfer.setData('text/plain',this.props.data.taskId);
-        taskDragStart(this.props.data.listId, this.props.data.taskId);
-    }
-
-
-
 
     render () {
-        return (
+        const {isDragging, connectDragSource, data } = this.props;
+        const opacity = isDragging ? 0 : 1;
+        return connectDragSource(
             <div 
-                className={`taskItem ${this.props.data.completed ? 'completed': ''}` } 
-                id={this.props.data.taskId}
-                draggable
-                onDragStart={this.handleDragStart}         
+                className={`taskItem ${data.completed ? 'completed': ''}` } 
+                id={data.taskId}
+                style ={{opacity}}
             >
-                <button onClick={(e) => removeTask(this.props.data.listId, this.props.data.taskId)}>
+                <button onClick={(e) => removeTask(data.listId, data.taskId)}>
                 <FontAwesomeIcon icon="trash" />
                 </button>
-                <TaskColor color={this.props.data.color} listId={this.props.data.listId} taskId={this.props.data.taskId} />
-                {this.props.data.readOnly && <input 
+                <TaskColor color={data.color} listId={data.listId} taskId={data.taskId} />
+                {data.readOnly && <input 
                     type="checkbox"
                     onChange={(e)=> 
                         markAsCompleted(
-                            this.props.data.taskId, 
-                            this.props.data.listId,
+                            data.taskId, 
+                            data.listId,
                             e.target.checked
                         )}
-                    checked={this.props.data.completed}/>}
+                    checked={data.completed}/>}
                     <div className="taskText">
 
-                    {this.props.data.readOnly 
-                        ?  <div onClick={() => changeTaskTextReadOnly(this.props.data.taskId,this.props.data.listId, false)}>{this.props.data.text}</div>
+                    {data.readOnly 
+                        ?  <div onClick={() => changeTaskTextReadOnly(data.taskId,data.listId, false)}>{data.text}</div>
                         : (<input type="text" value={this.state.taskText} onChange={this.handleInputChange} onKeyUp={this.handleKeyup}/>)}
                     </div>
             </div>
         );
     }
 }
-export default Task;
+export default DragSource('task', itemSource, collect)(Task);

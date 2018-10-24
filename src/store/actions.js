@@ -42,10 +42,7 @@ export const changeTaskText = (listId, taskId, newTaskText) => {store.dispatch({
 
 export const changeColor = (listId, taskId, color) => {store.dispatch({type:'CHANGE_COLOR',listId, taskId, color })}
 
-export const taskDragStart = (listId, taskId) => {store.dispatch({type: 'TASK_START_DRAG', listId, taskId})};
-
-
-export const taskDrop = (listId, taskId) => {store.dispatch({type: 'TASK_DROP', listId,taskId})};
+export const taskDrop = (sourceListId,targetListId, taskDragged) => {store.dispatch({type: 'TASK_DROP', sourceListId,targetListId, taskDragged})};
 
 const generateId = (namespace)  => {
     return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`

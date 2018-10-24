@@ -108,29 +108,13 @@ export function reducer(state = initialState, action)
             return {...state, lists: newLists};
         }
 
-        case 'TASK_START_DRAG':
-        {
-            let draggerTask = {};
-            const newLists = state.lists.map(
-                list => {
-                    if (list.listId === action.listId) {
-                        draggerTask = list.tasks.find(
-                            task => task.taskId === action.taskId
-                        )
-                    }
-                    return list;
-                }
-            );
-            return {...state, draggedTask: draggerTask};
-        }
-
         case 'TASK_DROP':
         {
             const ListsTaskRemoved = state.lists.map(
                 list => {
-                    if (list.listId === state.draggedTask.listId) {
+                    if (list.listId === action.sourceListId) {
                         list.tasks = list.tasks.filter(
-                            task => task.taskId !== state.draggedTask.taskId
+                            task => task.taskId !== action.taskDragged.taskId
                         )
                     }
                     return list;
@@ -139,15 +123,15 @@ export function reducer(state = initialState, action)
 
             const newLists = ListsTaskRemoved.map(
                 list => {
-                    if (list.listId === action.listId) {
-                        const newTask = {...state.draggedTask, listId: action.listId }
+                    if (list.listId === action.targetListId) {
+                        const newTask = {...action.taskDragged, listId: action.targetListId }
                         list.tasks.push(newTask);
                     }
                     return list;
                 }
             );
 
-            return {...state,lists: newLists, draggedTask: {}};
+            return {...state,lists: newLists};
         }
 
         default:

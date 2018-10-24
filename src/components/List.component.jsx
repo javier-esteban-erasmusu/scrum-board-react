@@ -2,10 +2,25 @@ import React from 'react';
 import './List.component.css';
 import Task from './Task.component.jsx';
 import ListType from './List.type.js';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addNewTask, removeList, taskDrop} from '../store/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DropTarget } from 'react-dnd';
+
+
+const target = {
+    drop(props, monitor, component)  {
+        const taskDragged = monitor.getItem();
+        taskDrop(taskDragged.listId, props.data.listId, taskDragged);
+    }
+}
+
+
+function collect(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+    }
+}
 
 class List extends React.Component {
     static propTypes = {
@@ -31,35 +46,26 @@ class List extends React.Component {
         removeList(this.props.data.listId)
     }
 
-    handleDragOver = (e) => {
-        e.preventDefault();
-    }
-
-    handleDrop = (e, category) => {
-        console.log(e);
-        taskDrop(this.props.data.listId, this.props.data.taskId);
-    }
-
     render() {
-        return (
+        const {connectDropTarget} = this.props;
+        return connectDropTarget(
             <div 
                 className="list"
-                id={this.props.data.listId}
-                onDragOver={(e) => this.handleDragOver(e)}
-                onDrop = {(e) => this.handleDrop(e, 'testd')}    
+                id={this.props.data.listId} 
             >
                 <div className="listHeader">
                     <h4>{this.props.data.name}
                         <button onClick={this.handleRemoveList}><FontAwesomeIcon icon="trash" /></button>
                     </h4>
                 </div>
-                
+                <ul>
                 {this.props.data.tasks.map(taskData => 
-                <Task 
-                    data={taskData} 
-                    onHandleMarkAsCompleted={this.props.onHandleMarkAsCompleted} 
-                    key={taskData.taskId}/>)}
-
+                    <li key={taskData.taskId}>
+                    <Task 
+                        data={taskData} 
+                        onHandleMarkAsCompleted={this.props.onHandleMarkAsCompleted} 
+                        key={taskData.taskId}/></li>)}
+                </ul>
                 <div className="addTask">
                     <input 
                         type="text" 
@@ -75,7 +81,7 @@ class List extends React.Component {
 
 const mapStateToProps = (state)  => ({lists: state.lists});
 
-export default connect(
+export default DropTarget('task', target, collect)(connect(
   mapStateToProps,
   null
-)(List);
+)(List));
