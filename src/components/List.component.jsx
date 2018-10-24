@@ -81,7 +81,7 @@ class List extends React.Component {
 
 const mapStateToProps = (state)  => ({lists: state.lists});
 
-export default DropTarget('task', target, collect)(connect(
+export default connect(
   mapStateToProps,
   null
-)(List));
+)(DropTarget('task', target, collect) (List));

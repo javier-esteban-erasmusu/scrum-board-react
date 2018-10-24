@@ -54,8 +54,8 @@ class App extends Component {
 
 const mapStateToProps = (state)  => ({lists: state.lists});
 
-export default DragDropContext(HTML5Backend)(connect(
+export default connect(
   mapStateToProps,
   null
-)(App));
+)(DragDropContext(HTML5Backend)(App));
 
