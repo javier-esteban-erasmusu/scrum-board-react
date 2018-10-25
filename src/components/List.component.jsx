@@ -1,11 +1,12 @@
 import React from 'react';
 import './List.component.css';
-import Task from './Task.component.jsx';
+import TaskList from './TaskList.component.jsx';
 import ListType from './List.type.js';
 import {connect} from 'react-redux';
 import {addNewTask, removeList, taskDrop} from '../store/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DropTarget } from 'react-dnd';
+
 
 
 const target = {
@@ -58,14 +59,7 @@ class List extends React.Component {
                         <button onClick={this.handleRemoveList}><FontAwesomeIcon icon="trash" /></button>
                     </h4>
                 </div>
-                <ul>
-                {this.props.data.tasks.map(taskData => 
-                    <li key={taskData.taskId}>
-                    <Task 
-                        data={taskData} 
-                        onHandleMarkAsCompleted={this.props.onHandleMarkAsCompleted} 
-                        key={taskData.taskId}/></li>)}
-                </ul>
+                <TaskList tasks={this.props.data.tasks}/>
                 <div className="addTask">
                     <input 
                         type="text" 
