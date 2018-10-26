@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import List from './components/List.component.jsx';
+import List from './components/List/List.component.jsx';
 import {addNewList} from './store/actions';
 import {connect} from 'react-redux';
 import { library } from '@fortawesome/fontawesome-svg-core'
