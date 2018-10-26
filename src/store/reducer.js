@@ -126,6 +126,9 @@ export function reducer(state = initialState, action)
 
         case 'TASK_DROP':
         {
+            if (state.draggedTask.listId == action.listId) {
+                return state;
+            }
             const ListsTaskRemoved = state.lists.map(
                 list => {
                     if (list.listId === state.draggedTask.listId) {
@@ -147,7 +150,35 @@ export function reducer(state = initialState, action)
                 }
             );
 
-            return {...state,lists: newLists, draggedTask: {}};
+            return {...state,lists: newLists};
+        }
+
+        case 'TASK_REORDER':
+        {
+            const ListsTaskRemoved = state.lists.map(
+                list => {
+                    if (list.listId === state.draggedTask.listId) {
+                        list.tasks = list.tasks.filter(
+                            task => task.taskId !== state.draggedTask.taskId
+                        )
+                    }
+                    return list;
+                }
+            );
+
+
+            const newLists = ListsTaskRemoved.map(
+                list => {
+                    let indexTaskId = 0;
+                    if (list.listId === action.listId) {
+                        indexTaskId = list.tasks.findIndex((task)=>(task.taskId == action.taskId));                        
+                    }
+                    list.tasks.splice(indexTaskId, 0, state.draggedTask)
+                    return list;
+                }
+            );
+
+            return {...state,lists: newLists};
         }
 
         default:

@@ -47,6 +47,8 @@ export const taskDragStart = (listId, taskId) => {store.dispatch({type: 'TASK_ST
 
 export const taskDrop = (listId, taskId) => {store.dispatch({type: 'TASK_DROP', listId,taskId})};
 
+export const taskReorder = (listId, taskId) => {store.dispatch({type: 'TASK_REORDER', listId,taskId})};
+
 const generateId = (namespace)  => {
     return `${namespace}-${Date.now()}-${Math.round(Math.random()*100)}`
 }

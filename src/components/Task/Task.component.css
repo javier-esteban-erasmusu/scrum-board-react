@@ -1,0 +1,27 @@
+.taskItem {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border-radius: 5px;
+    border-right-style: solid;
+    border-right-color: white;
+    border-right-width: 6px;
+    padding-right: 0.3em;
+    margin: 5px 0;
+    background: white;
+}
+
+.taskItem button {
+    margin-right: 10px
+}
+
+.taskItem.completed .taskText{
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.circle-picker{
+    background-color: white;
+    margin-top: 20px;
+    padding: 11px 0px 0px 8px;
+}
