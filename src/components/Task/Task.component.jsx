@@ -38,22 +38,29 @@ class Task extends React.Component {
         e.preventDefault();
     }
 
-    handleDrop = (e, category) => {
-        
+    handleDrop = () => {
         taskReorder(this.props.data.listId, this.props.data.taskId);
     }
 
+    handleDragEnter = (e) => {
+        e.target.classList.add('drag-over');
+    }
 
+    handleDragLeave = (e) => {
+        e.target.classList.remove('drag-over');
+    }
 
     render () {
         return (
-            <div 
+            <div
                 className={`taskItem ${this.props.data.completed ? 'completed': ''}` } 
                 id={this.props.data.taskId}
                 draggable
                 onDragStart={this.handleDragStart}
                 onDragOver={(e) => this.handleDragOver(e)}
-                onDrop = {(e) => this.handleDrop(e, 'testd')}      
+                onDragEnter={this.handleDragEnter}
+                onDragLeave={this.handleDragLeave}
+                onDrop = {this.handleDrop}      
             >
                 <button onClick={(e) => removeTask(this.props.data.listId, this.props.data.taskId)}>
                 <FontAwesomeIcon icon="trash" />

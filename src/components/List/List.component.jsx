@@ -2,7 +2,6 @@ import React from 'react';
 import './List.component.css';
 import Task from '../Task/Task.component.jsx';
 import ListType from './List.type.js';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {addNewTask, removeList, taskDrop} from '../../store/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,7 +34,7 @@ class List extends React.Component {
         e.preventDefault();
     }
 
-    handleDrop = (e, category) => {
+    handleDrop = () => {
         taskDrop(this.props.data.listId, this.props.data.taskId);
     }
 
@@ -44,8 +43,8 @@ class List extends React.Component {
             <div 
                 className="list"
                 id={this.props.data.listId}
-                onDragOver={(e) => this.handleDragOver(e)}
-                onDrop = {(e) => this.handleDrop(e, 'testd')}    
+                onDragOver={this.handleDragOver}
+                onDrop = {this.handleDrop}    
             >
                 <div className="listHeader">
                     <h4>{this.props.data.name}
